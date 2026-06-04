@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tesco Retail Media Creative Builder</title>
+    <link rel="stylesheet" href="style.css">
+    <button onclick="startVoice()">🎤 Start Voice</button>
+    
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <header>
+            <h1>Voice command base drawing system </h1>
+            <p>AI-Powered Retail Media Creative Builder for Small Advertisers</p>
+        </header>
+
+        <div class="main-grid">
+            <!-- Left Panel: Asset Upload & Brand Profile -->
+            <div class="panel upload-panel">
+                <h3>1. Upload Assets</h3>
+                <p class="panel-subtitle">Packshots, logos, product shots.</p>
+                <div class="upload-zone" id="uploadZone">
+                    <p>📸 Drop images here or click to upload</p>
+                    <input type="file" id="fileInput" accept="image/*" multiple>
+                </div>
+
+                <div class="brand-profile" id="brandProfile">
+                    <h4>Brand Profile</h4>
+                    <div id="brandProfileBody">
+                        <div>Primary Colors: –</div>
+                        <div>Assets Loaded: 0</div>
+                        <div>Compliance Score: 92%</div>
+                    </div>
+                </div>
+
+                <h4>Background</h4>
+                <div class="bg-controls">
+                    <label>Solid Color:</label>
+                    <input type="color" id="bgColorPicker" value="#ffffff">
+                </div>
+                <div class="bg-templates">
+                    <button class="bg-template" data-type="gradient1">Gradient 1</button>
+                    <button class="bg-template" data-type="gradient2">Gradient 2</button>
+                    <button class="bg-template" data-type="gradient3">Gradient 3</button>
+                </div>
+
+                <!-- NEW: Shapes Section -->
+                <h4>Shapes</h4>
+                <div class="shape-buttons" style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px;">
+                    <button id="addRect" class="shape-btn" style="padding: 8px 12px; font-size: 0.8rem; background: #f0f0ff;">▭ Rect</button>
+                    <button id="addCircle" class="shape-btn" style="padding: 8px 12px; font-size: 0.8rem; background: #f0f0ff;">○ Circle</button>
+                    <button id="addTriangle" class="shape-btn" style="padding: 8px 12px; font-size: 0.8rem; background: #f0f0ff;">△ Triangle</button>
+                    <button id="addLine" class="shape-btn" style="padding: 8px 12px; font-size: 0.8rem; background: #f0f0ff;">─ Line</button>
+                </div>
+            </div>
+
+            <!-- Center: Visual Canvas Editor -->
+            <div class="panel editor-panel">
+                <h3>2. Visual Builder</h3>
+                <p class="panel-subtitle">Drag, resize, overlap text and images.</p>
+
+                <div class="canvas-wrapper">
+                    <canvas id="canvas" width="800" height="600"></canvas>
+                </div>
+
+                <div class="editor-tools">
+                    <button id="aiSuggest">🎨 AI Layout Suggestions</button>
+                    <button id="checkCompliance">✅ Check Guidelines</button>
+                    <button id="generateVariants">✨ Generate Variants</button>
+                    <button id="undoBtn">↩️ Undo</button>
+                    <button id="redoBtn">↪️ Redo</button>
+                    <button id="deleteBtn">🗑️ Delete Selected</button>
+                </div>
+
+                <div id="aiSuggestionsPanel" class="ai-suggestions-panel">
+                    <h4>AI Suggestions</h4>
+                    <ul id="aiSuggestionsList">
+                        <li>No suggestions yet. Click "AI Layout Suggestions".</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Right Panel: Assets & Properties -->
+            <div class="panel assets-panel">
+                <h3>3. Assets Palette</h3>
+                <p class="panel-subtitle">Drag assets or add texts & badges.</p>
+
+                <h4>Uploaded Assets</h4>
+                <div class="assets-grid" id="assetsGrid"></div>
+                
+                <h4>Text Boxes</h4>
+                <input type="text" id="textInput" placeholder="Enter text..." />
+                <div class="text-settings">
+                    <label>Font:</label>
+                    <select id="fontSelect">
+                        <option value="Arial, sans-serif">Sans (Arial)</option>
+                        <option value="Georgia, serif">Serif (Georgia)</option>
+                        <option value="'Comic Sans MS', cursive">Friendly Script</option>
+                    </select>
+
+                    <label>Size:</label>
+                    <input type="range" id="fontSizeSlider" min="14" max="60" value="28">
+                    <span id="fontSizeLabel">28px</span>
+                </div>
+                <button id="addText">➕ Add Text</button>
+
+                <h4>Colors</h4>
+                <div class="color-palette" id="colorPalette"></div>
+                <input type="color" id="customColorPicker" value="#333333" title="Custom color">
+
+                <h4>Stickers</h4>
+                <div class="stickers">
+                    <button class="sticker-btn" data-src="🎉">Sale</button>
+                    <button class="sticker-btn" data-src="⭐">Star</button>
+                    <button class="sticker-btn" data-src="🔥">Hot</button>
+                    <button class="sticker-btn" data-src="💥">Boom</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bottom: Export & Status -->
+        <div class="bottom-panel">
+            <!-- MODIFIED: Added FB/IG export buttons -->
+            <div class="export-buttons">
+                <button id="exportJpeg">📥 Export JPEG</button>
+                <button id="exportPng">📥 Export PNG</button>
+                <button onclick="testBackend()">🔗 Test Backend</button>
+                <button onclick="saveProject()">
+    💾 Save Project
+</button>
+                <button id="exportFb" style="font-size: 0.8rem; padding: 8px 12px;">FB 1200×628</button>
+                <button id="exportIgSquare" style="font-size: 0.8rem; padding: 8px 12px;">IG Square 1080²</button>
+                <button id="exportIgStory" style="font-size: 0.8rem; padding: 8px 12px;">IG Story 1080×1920</button>
+            </div>
+            <div class="saved-projects">
+
+    <h3>Saved Projects</h3>
+
+    <div id="savedProjects"></div>
+
+    <button onclick="loadProjects()">
+        📂 Load Projects
+    </button>
+
+</div>
+            <div id="status" class="status-good">Ready to create! 🚀</div>
+            <div id="complianceStatus" class=""></div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
